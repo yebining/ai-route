@@ -1,0 +1,5 @@
+# 작업 중 만든 로컬 백업 (배포 대상 아님)
+dist.bak*/
+*.tmp.mjs
+ttmp.mjs
+dbg*.mjs
