@@ -55,5 +55,5 @@ function availabilityPanel(m){const slots=availability(m.id);return `<section cl
   else if(b.hasAttribute('data-booking-detail'))modal('예약 확인',reservationCard(r)+(r.payment?`<div class="payment-demo-banner">${r.payment.method} · ${money(r.payment.amount)} 테스트 결제 완료</div>`:''));
   else if(b.hasAttribute('data-complete-demo'))modal('수업 완료 처리',`<p class="dialog-lead">예정된 수업이 끝난 상황을 가정하여 완료 상태를 체험합니다.</p><div class="confirmation-summary"><h3>${dateLabel(r.reservation.date,r.reservation.time)}</h3><p>${r.reservation.duration}분 · ${mentor(r.mentorId).name} 강사</p></div><p class="field-hint">실제 수업이 진행되었다는 확인이 아닌 UI 체험입니다.</p>`,()=>store.complete(r.id,actor,{simulate:true}),'완료 상태 체험하기');
  }catch(err){errorMessage(err);}});
- return {finishDiagnosis,renderRoute,availabilityPanel,ratePanel,applyButton,store,ensureDiagnosis,diagnosisCard,getDiagnosis:()=>diagnosis};
+ return {finishDiagnosis,renderRoute,availabilityPanel,ratePanel,applyButton,store,ensureDiagnosis,diagnosisCard,getDiagnosis:()=>diagnosis,setActor:v=>{actor=v;}};
 }
