@@ -1,17 +1,17 @@
-# AI ROUTE interface prototype
+# 먀칭 (구 AI ROUTE) — 인터페이스 프로토타입
 
 A Korean AI learning navigation service prototype. Static HTML, CSS and JavaScript with consultation, recommendations, mentor profiles, matching applications and a chat/booking workspace.
 
 ## Implemented
 
-- Free-text or suggested goal entry, guided consultation, experience and blocker selection.
+- A four-question interview (AI tool experience, goal category, prior knowledge, preferred format) opens immediately; every question takes a choice or free text.
 - Category and experience based recommendations and a three-step learning route.
-- Six mentor profiles with horizontal browsing, category filtering, career history and example outcomes.
+- Six mentor profiles with horizontal browsing, category filtering, career history and example outcomes. Two of them carry a 먀칭 certification mark for mentors the team recruited directly; self-registered mentors cannot set it.
 - Detail-to-consultation flow retaining the selected mentor.
 - Diagnosis completion transitions through a short matching screen into the best three recommendations, followed by the remaining mentors without duplication.
 - Mentor availability examples, preferred schedule selection and matching requests carrying an immutable diagnosis snapshot.
 - A contact list and one-to-one demo conversation with learner/mentor role switching, text messages and diagnosis attachments.
-- Four matching stages: received, coordinating, confirmed, completed.
+- Four matching stages: received, coordinating, confirmed, completed. The learner cannot send anything until the mentor accepts; accepting posts the mentor's first greeting, written from the diagnosis.
 - Structured schedule proposals, versioned quotes, learner acceptance and reservation details.
 - In-chat checkout with explicit test payment and a completion simulation. No card details are collected.
 - Responsive layouts, keyboard form submission, accessible labels and reduced-motion support.
@@ -50,14 +50,24 @@ cd dist && python -m http.server 8765 --bind 127.0.0.1
 
 | 경로 | 화면 |
 |---|---|
-| `#/` | 홈 — 챗 입력 + 6개 분야 타일 + 강사 선반 |
-| `#/chat` | AI 상담 (목표 → 도구 사용 → 수업 형식 → 막힌 부분 → 진단서) |
+| `#/` | 홈 — 강사 사진 무한 배너 + 6개 분야 타일 + 강사 선반 (헤더는 스크롤 시 등장) |
+| `#/chat` | AI 상담 — 인터뷰 4문항 (AI 도구 경험 → 목표 분야 → 사전 지식 → 수업 형식) → 진단서 |
 | `#/finding` `#/recommendations` | 매칭 중 → 추천 TOP3 + 나머지 강사 |
 | `#/mentors` `#/mentor/:id` | 강사 둘러보기 / 강사 프로필 |
 | `#/apply/:id` | 매칭 신청 (진단서 편집 가능, 일정은 채팅에서 조율) |
-| `#/messages` | 1:1 채팅 · 일정 제안 · 견적 · 예약 · 테스트 결제 |
-| `#/teach` `#/teach/edit` | 강사 등록 / 프로필 수정 |
+| `#/messages` | 1:1 채팅 · 일정 제안 · 견적 · 예약 · 테스트 결제 (강사 수락 전에는 사용자 발신 잠김) |
+| `#/teach` | 강사 입구 — 다크 모드 전용 화면, 배너 + CTA `강사 지원하기` |
+| `#/teach/apply` | 지원 방식 선택 — 직접 입력 / 원티드 정보 연동 |
+| `#/teach/apply/self` `#/teach/apply/wanted` | 지원서 직접 작성 / 원티드 로그인 후 프로필 자동 입력 |
+| `#/teach/edit` | 내 프로필 수정 (이력 줄 추가·학력 입력) |
+| `#/tutor/requests` | 강사 마이페이지 — 들어온 요청 확인·수락 |
 | `#/admin` | 운영 콘솔 — 강사 검수(승인·반려), 매칭 신청 현황 |
+
+## 두 개의 입구
+
+배우는 쪽(`#/`)은 밝은 화면, 가르치는 쪽(`#/teach`)은 다크 화면이며 헤더와 메뉴가 서로 다릅니다. 두 세계는 각자의 전환 버튼으로만 오갑니다.
+
+강사 동선은 지원 → 운영 콘솔 승인(`#/admin`) → 강사 마이페이지에서 요청 수락 순으로 이어지고, 수락하는 순간 진단서를 반영한 첫 인사가 수강생에게 전달됩니다. 수락 전에는 수강생이 메시지·견적·일정을 보낼 수 없습니다.
 
 ## 데이터
 
